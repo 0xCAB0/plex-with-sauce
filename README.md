@@ -39,7 +39,7 @@ pip install git+https://github.com/NASA-AMMOS/slim-detect-secrets.git@exp
 3. Set-up env variables 
 
 ```env
-SECRETS_PATH="Path that should be ignored for secrets detection"
+SECRETS_REGEX="Path that should be ignored for secrets detection"
 SECRETS_OUTFILE="File containing the audit results"
 ```
 
