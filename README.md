@@ -5,7 +5,7 @@ focusing on security and secrets protection, so the enviroment can be _safely_ e
 
 ## Env variables setup
 
-Checkout [.env.example](.env.example) for all the necessary env variables
+Checkout [.env.example](env.example) for all the necessary env variables
 
 ### Running the container
 
