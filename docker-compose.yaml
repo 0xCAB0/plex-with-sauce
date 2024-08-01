@@ -6,11 +6,13 @@ services:
   samba:
     image: dperson/samba # no hay tag con versiones, solo latest
     restart: always
-    command: '-u "pi;password" -s "media;/media;yes;no" -s "downloads;/downloads;yes;no"'
+    command: '-u "${SAMBA_USER};${SAMBA_PASSWORD}" \
+                  -s "media;/media;yes;no" \
+                  -s "downloads;/downloads;yes;no"'
     stdin_open: true
     tty: true
     environment:
-      - TZ=America/Argentina/Mendoza
+      - TZ=${TZ}
     ports:
       - 139:139
       - 445:445
@@ -29,7 +31,7 @@ services:
       - 32400:32400
       - 33400:33400
     environment:
-      - TZ=America/Argentina/Mendoza
+      - TZ=${TZ}
     volumes:
       - ${STORAGE}/Plex Media Server:/root/Library/Application Support/Plex Media Server
       - ${MEDIA}:/media
@@ -45,11 +47,11 @@ services:
       - ./transmission:/config
       - ${STORAGE}/torrents:/downloads
     ports:
-      - 9091:9091
+      - {TRANSMISSION_PORT_UI}:9091
       - 51413:51413
       - 51413:51413/udp
     expose:
-      - 9091
+      - {TRANSMISSION_PORT_UI}
     restart: unless-stopped
     networks:
       - lan
@@ -62,12 +64,12 @@ services:
       - ${STORAGE}/torrents:/downloads
       - ${MEDIA}:/storage
     ports:
-      - 5050:5050
+      - ${FLEXGET_PORT}:5050
     environment:
       - PUID=1001
       - PGID=1001
       - TORRENT_PLUGIN=transmission
-      - FG_WEBUI_PASSWD=p3l4d0_N3RD # la puedes cambiar por la que quieras
+      - FG_WEBUI_PASSWD=${FLEXGET_PASSWORD} # la puedes cambiar por la que quieras
     restart: unless-stopped
     networks:
       - lan
