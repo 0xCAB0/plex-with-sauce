@@ -12,4 +12,5 @@ downloads/*
 .env
 flexget/*.sqlite
 transmission/dht.dat
-transmission/stats.json
+transmission/*.json
+flexget/cached*
